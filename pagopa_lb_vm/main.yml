@@ -12,26 +12,27 @@
   connection: local
   become: yes
   vars:
+    nginx_remove_default_vhost: true
     nginx_vhosts:
       - listen: "80"
         server_name: "pagopa.cd.local"
         extra_parameters: |
           location / {
-            proxy_pass: "http://k8s_agents"
+            proxy_pass http://k8s_agents;
           }
 
       - listen: "80"
         server_name: "nodo.sia.local"
         extra_parameters: |
           location / {
-            proxy_pass: "http://pagopa_nodo"
+            proxy_pass http://pagopa_nodo;
           }
 
       - listen: "80"
         server_name: "avvisatura.sia.local"
         extra_parameters: |
           location / {
-            proxy_pass: "http://pagopa_avvisatura"
+            proxy_pass http://pagopa_avvisatura;
           }
 
     nginx_upstreams:
