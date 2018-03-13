@@ -6,12 +6,13 @@ set -o pipefail
 set -o xtrace
 
 REPO_NAME=digital-citizenship-ansible-playbooks
-VERSION=0.0.4
+VERSION=0.0.5
 
 # install prerequisites
+export DEBIAN_FRONTEND=noninteractive
 apt-get update
-apt-get install unzip
-apt-get install ansible
+apt-get -y install unzip
+apt-get -y install ansible
 
 wget https://github.com/teamdigitale/$(REPO_NAME)/archive/v$(VERSION).zip
 
