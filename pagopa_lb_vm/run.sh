@@ -6,7 +6,7 @@ set -o pipefail
 set -o xtrace
 
 REPO_NAME=digital-citizenship-ansible-playbooks
-VERSION=0.0.8
+VERSION=0.0.10
 
 # install prerequisites
 export DEBIAN_FRONTEND=noninteractive
