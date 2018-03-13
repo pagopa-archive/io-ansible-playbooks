@@ -6,7 +6,7 @@ set -o pipefail
 set -o xtrace
 
 REPO_NAME=digital-citizenship-ansible-playbooks
-VERSION=0.0.7
+VERSION=0.0.8
 
 # install prerequisites
 export DEBIAN_FRONTEND=noninteractive
@@ -17,13 +17,13 @@ apt-get -y install ansible
 wget https://github.com/teamdigitale/$REPO_NAME/archive/v$VERSION.zip
 
 unzip v$VERSION.zip
-cd $REPO_NAME-$VERSION
+cd $REPO_NAME-$VERSION/pagopa_lb_vm
 
 # install roles
 ansible-galaxy install -r requirements.yml
 
 # run playbook
-ansible-playbook -K main.yml
+ansible-playbook main.yml
 
 # signal successful execution
 exit 0
