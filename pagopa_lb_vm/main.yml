@@ -1,0 +1,61 @@
+#
+# This playbook is meant to be executed on the loadbalancer VM in the pagoPA
+# VPN subnet of the Digital Citizenship backend.
+#
+# To run this playbook on localhost:
+#   ansible-playbook -i "localhost," -c local main.yml
+#
+
+---
+- name: run the playbook tasks on the localhost
+  hosts: 127.0.0.1
+  connection: local
+  become: yes
+  vars:
+    nginx_vhosts:
+      - listen: "80"
+        server_name: "pagopa.cd.local"
+        extra_parameters: |
+          location / {
+            proxy_pass: "http://k8s_agents"
+          }
+
+      - listen: "80"
+        server_name: "nodo.sia.local"
+        extra_parameters: |
+          location / {
+            proxy_pass: "http://pagopa_nodo"
+          }
+
+      - listen: "80"
+        server_name: "avvisatura.sia.local"
+        extra_parameters: |
+          location / {
+            proxy_pass: "http://pagopa_avvisatura"
+          }
+
+    nginx_upstreams:
+      - name: k8s_agents
+        servers: {
+          "10.240.0.4:30010",
+          "10.240.0.5:30010",
+          "10.240.0.6:30010"
+        }
+      - name: pagopa_nodo
+        servers: {
+          "10.250.1.131:9600"
+        }
+      - name: pagopa_avvisatura
+        servers: {
+          "10.250.1.128:80"
+        }
+
+    nginx_extra_http_options: |
+      proxy_buffering    off;
+      proxy_set_header   X-Real-IP $remote_addr;
+      proxy_set_header   X-Scheme $scheme;
+      proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header   Host $http_host;
+
+  roles:
+    - role: geerlingguy.nginx

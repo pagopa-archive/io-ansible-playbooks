@@ -1,0 +1,4 @@
+---
+# https://galaxy.ansible.com/geerlingguy/nginx/
+- src: geerlingguy.nginx
+  version: 2.5.0
