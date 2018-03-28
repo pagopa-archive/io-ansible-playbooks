@@ -15,21 +15,21 @@
     nginx_remove_default_vhost: true
     nginx_vhosts:
       - listen: "80"
-        server_name: "pagopa.cd.local"
+        server_name: "pagopa.cd.test"
         extra_parameters: |
           location / {
             proxy_pass http://k8s_agents;
           }
 
       - listen: "80"
-        server_name: "nodo.sia.local"
+        server_name: "nodopa.te.sia.eu"
         extra_parameters: |
           location / {
             proxy_pass http://pagopa_nodo;
           }
 
       - listen: "80"
-        server_name: "avvisatura.sia.local"
+        server_name: "avvisatura.te.sia.eu"
         extra_parameters: |
           location / {
             proxy_pass http://pagopa_avvisatura;
