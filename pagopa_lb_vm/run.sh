@@ -10,7 +10,7 @@ if [ -z "$1" ]
     echo "Ansible repo version not specified. Please, try again."
 fi
 
-REPO_NAME=digital-citizenship-ansible-playbooks
+REPO_NAME=io-ansible-playbooks
 VERSION=$1
 
 # install prerequisites
