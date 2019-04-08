@@ -22,10 +22,24 @@
           }
 
       - listen: "80"
+        server_name: "pagopa.cd.prod"
+        extra_parameters: |
+          location / {
+            proxy_pass http://k8s_agents;
+          }
+
+      - listen: "80"
         server_name: "nodopa.te.sia.eu"
         extra_parameters: |
           location / {
             proxy_pass http://pagopa_nodo;
+          }
+
+      - listen: "80"
+        server_name: "nodopa.sia.eu"
+        extra_parameters: |
+          location / {
+            proxy_pass http://pagopa_nodo_prod;
           }
 
       - listen: "80"
@@ -45,6 +59,10 @@
       - name: pagopa_nodo
         servers: {
           "10.250.1.131:9600"
+        }
+      - name: pagopa_nodo_prod
+        servers: {
+          "10.250.1.134:9600"
         }
       - name: pagopa_avvisatura
         servers: {

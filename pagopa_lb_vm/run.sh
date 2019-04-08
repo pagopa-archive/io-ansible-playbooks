@@ -5,12 +5,17 @@ set -o errexit
 set -o pipefail
 set -o xtrace
 
+if [ -z "$1" ]
+  then
+    echo "Ansible repo version not specified. Please, try again."
+fi
+
 REPO_NAME=digital-citizenship-ansible-playbooks
-VERSION=0.0.11
+VERSION=$1
 
 # install prerequisites
 export DEBIAN_FRONTEND=noninteractive
-apt-get update
+apt-get -y update
 apt-get -y install unzip
 apt-get -y install ansible
 
