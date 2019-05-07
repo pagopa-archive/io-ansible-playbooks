@@ -18,14 +18,14 @@
         server_name: "pagopa.cd.test"
         extra_parameters: |
           location / {
-            proxy_pass http://k8s_agents;
+            proxy_pass http://pagopa_proxy_test;
           }
 
       - listen: "80"
         server_name: "pagopa.cd.prod"
         extra_parameters: |
           location / {
-            proxy_pass http://k8s_agents;
+            proxy_pass http://pagopa_proxy_prod;
           }
 
       - listen: "80"
@@ -50,11 +50,17 @@
           }
 
     nginx_upstreams:
-      - name: k8s_agents
+      - name: pagopa_proxy_prod
         servers: {
           "10.240.0.4:30010",
           "10.240.0.5:30010",
           "10.240.0.6:30010"
+        }
+      - name: pagopa_proxy_test
+        servers: {
+          "10.240.0.4:30020",
+          "10.240.0.5:30020",
+          "10.240.0.6:30020"
         }
       - name: pagopa_nodo
         servers: {
