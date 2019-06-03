@@ -52,9 +52,9 @@
     nginx_upstreams:
       - name: pagopa_proxy_prod
         servers: {
-          "10.240.0.4:30010",
-          "10.240.0.5:30010",
-          "10.240.0.6:30010"
+          "10.220.0.4:30010",
+          "10.220.0.5:30010",
+          "10.220.0.6:30010"
         }
       - name: pagopa_proxy_test
         servers: {
